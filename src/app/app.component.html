@@ -1,0 +1,95 @@
+<mat-card class="card-container">
+  <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+      <mat-card-content>
+          <div class="bma-row">
+              <div class="bma-col-4 bma-col-md-6 bma-col-sm-12 form-field-container">
+                  <!-- <mat-form-field appearance="fill">
+                      <mat-label>Sail date</mat-label>
+                      <mat-date-range-input [rangePicker]="sailDatePicker"
+                          [comparisonStart]="form.controls.beginSailDate.value"
+                          [comparisonEnd]="form.controls.endSailDate.value">
+                          <input matStartDate placeholder="Start date" formControlName="beginSailDate">
+                          <input matEndDate placeholder="End date" formControlName="endSailDate">
+                      </mat-date-range-input>
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="sailDatePicker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #sailDatePicker></mat-date-range-picker>
+                  </mat-form-field> -->
+                </div>
+              </div>
+              
+      </mat-card-content>
+      <mat-card-actions align="end">
+          <button [disabled]="form.invalid" mat-button type="submit">Submit</button>
+      </mat-card-actions>
+  </form>
+</mat-card><!-- 
+<ng-container *ngIf="items$ | async as voyages">
+  <ng-container *ngIf="!(loading$ | async)">
+      <table mat-table [dataSource]="voyages" class="voyage-table">
+ -->
+          <!-- Destination Column -->
+ <!--          <ng-container matColumnDef="destination">
+              <th mat-header-cell *matHeaderCellDef> Destination </th>
+              <td mat-cell *matCellDef="let element"> {{element.regionLocation}} </td>
+          </ng-container>
+ -->
+          <!-- Ship Column -->
+    <!--       <ng-container matColumnDef="ship">
+              <th mat-header-cell *matHeaderCellDef> Ship </th>
+              <td mat-cell *matCellDef="let element"> {{element.shipCode}} </td>
+          </ng-container>
+
+       -->    <!-- Sail Date Column -->
+     <!--      <ng-container matColumnDef="sailDate">
+              <th mat-header-cell *matHeaderCellDef> Sail Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.sailDate | date}} </td>
+          </ng-container>
+
+        -->   <!-- Guest Number Column -->
+     <!--      <ng-container matColumnDef="guestNumber">
+              <th mat-header-cell *matHeaderCellDef> # Guests </th>
+              <td mat-cell *matCellDef="let element"> {{element.lastGuestCount}} </td>
+          </ng-container>
+ -->
+          <!-- Party Status Column -->
+    <!--       <ng-container matColumnDef="partyStatus">
+              <th mat-header-cell *matHeaderCellDef> Party status </th>
+              <td mat-cell *matCellDef="let element"> {{element.partyStatus}} </td>
+          </ng-container>
+ -->
+          <!-- Actions Column -->
+     <!--      <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button>
+                      <mat-icon>content_copy</mat-icon>
+                  </button>
+                  <button mat-icon-button>
+                      <mat-icon>upload_file</mat-icon>
+                  </button>
+                  <button mat-icon-button>
+                      <mat-icon>cloud_upload</mat-icon>
+                  </button>
+              </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #paginator
+          [length]="pagination?.count"
+          [pageIndex]="getCurrentIndex"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="pagination.limit"
+          (page)="pageChanged($event)" aria-label="Select page">
+      </mat-paginator>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="loading$ | async">
+  <div class="loading-container">
+      <mat-spinner class="bma-margin-top-32 bma-margin-bottom-32"></mat-spinner>
+  </div>
+</ng-container> -->

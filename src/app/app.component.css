@@ -1,0 +1,14 @@
+.card-container {
+    margin: 8px;
+}
+
+.voyage-table {
+    width: 100%;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -1,0 +1,174 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+div { margin: 0; padding: 0;}
+.container { margin: 1%; }
+$viewport-sm: 375px;
+$viewport-md: 768px;
+$viewport-lg: 1365px;
+$test: green;
+/* Form field */
+mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 8px 0 0 0 !important;
+}
+
+.form-field-container {
+  padding: 0 5px 0 5px;
+}
+
+/* Text */
+.bma-title-1 {
+  font-size: 2.1rem;
+  line-height: 2.1rem;
+  font-weight: 500;
+  @media (min-width: ($viewport-md + 1px)) and (max-width: $viewport-lg) {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+  }
+  @media (max-width: $viewport-md) {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+}
+
+// Spacing
+.bma-container {
+  max-width: 1158px;
+  padding: 30px 30px 60px 30px;
+  @media (max-width: $viewport-md) {
+    padding: 24px 24px 60px 24px;
+  }
+  @media (max-width: $viewport-sm) {
+    padding: 16px 16px 60px 16px;
+  }
+}
+
+/* Spacing  */
+.bma-margin-top-16 {
+  margin-top: 16px;
+}
+
+.bma-margin-top-32 {
+  margin-top: 32px;
+}
+
+.bma-margin-top-64 {
+  margin-top: 64px;
+}
+
+.bma-margin-bottom-8 {
+  margin-bottom: 8px;
+}
+
+.bma-margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
+.bma-margin-bottom-32 {
+  margin-bottom: 32px;
+}
+
+.bma-margin-bottom-64 {
+  margin-bottom: 64px;
+}
+
+.bma-margin-right-32 {
+  margin-right: 32px;
+}
+
+.bma-margin-right-24 {
+  margin-right: 24px;
+}
+
+.bma-margin-left-16 {
+  margin-left: 16px;
+}
+
+.bma-margin-left-32 {
+  margin-left: 32px;
+}
+
+.bma-margin-left-24 {
+  margin-left: 24px;
+}
+
+// Grid System
+
+.bma-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.bma-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%bma-col {
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@for $i from 1 through 12 {
+  .bma-col-#{$i} {
+    @extend %bma-col;
+    $col-lg-percent: percentage($i / 12);
+    max-width: $col-lg-percent;
+  }
+}
+
+@for $i from 1 through 12 {
+  .bma-col-lg-#{$i} {
+    @extend %bma-col;
+    @media (min-width: ($viewport-lg + 1px)) {
+      $col-lg-percent: percentage($i / 12);
+      max-width: $col-lg-percent;
+    }
+  }
+}
+@for $i from 1 through 12 {
+  .bma-col-md-#{$i} {
+    @extend %bma-col;
+    @media (max-width: $viewport-lg) and (min-width: $viewport-md) {
+      $col-md-percent: percentage($i / 12);
+      max-width: $col-md-percent;
+    }
+  }
+}
+@for $i from 1 through 12 {
+  .bma-col-sm-#{$i} {
+    @extend %bma-col;
+    @media (max-width: $viewport-md) {
+      $col-sm-percent: percentage($i / 12);
+      flex: 0 0 $col-sm-percent;
+      max-width: $col-sm-percent;
+    }
+  }
+}
+
+.bma-col-sm-none {
+  @media (max-width: $viewport-md) {
+    display: none;
+  }
+}
+
+.bma-col-md-none {
+  @media (max-width: $viewport-lg) and (min-width: ($viewport-md + 1px)) {
+    display: none;
+  }
+}
+
+.bma-col-lg-none {
+  @media (min-width: ($viewport-lg + 1px)) {
+    display: none;
+  }
+}
