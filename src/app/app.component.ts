@@ -17,6 +17,8 @@ export class AppComponent {
   /** Reload */
   protected readonly reload$ = new Subject();
 
+  /** Show form */
+  public showForm = true;
   
   /** Paged list of items */
   public partidos$?: Observable<any>;
@@ -29,8 +31,6 @@ export class AppComponent {
 
     this.partidos$ = this.reload$.pipe(
       startWith(null),
-      skip(1),
-      tap(() => this.loading$.next(true)),
       switchMap(() => {
         this.form.value;
         return this.golfService.generate(
@@ -128,10 +128,10 @@ export class AppComponent {
       probMuchoVientoH_12: [0.6, Validators.required],
       probMuchoVientoH_13: [0.6, Validators.required],
       probMuchoVientoH_14: [0.6, Validators.required],
-      probMuchoVientoH_15: [0.6, Validators.required],
-      probMuchoVientoH_16: [0.6, Validators.required],
-      probMuchoVientoH_17: [0.6, Validators.required],
-      probMuchoVientoH_18: [0.6, Validators.required],
+      probMuchoVientoH_15: [0.4, Validators.required],
+      probMuchoVientoH_16: [0.4, Validators.required],
+      probMuchoVientoH_17: [0.4, Validators.required],
+      probMuchoVientoH_18: [0.4, Validators.required],
 
       cantSet: [4, Validators.required],
       cantidadSimulaciones: [1000, Validators.required]
@@ -144,6 +144,7 @@ export class AppComponent {
   public onFormSubmit(): void {
     this.reload$.next(null);
     this.partidos$?.subscribe(console.log)
+    this.showForm = false;
   }
 }
 

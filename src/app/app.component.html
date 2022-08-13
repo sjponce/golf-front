@@ -1,31 +1,359 @@
-<mat-card class="card-container">
-  <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+<button mat-raised-button color="primary" type="button" (click)="showForm = !showForm">Show/hide config</button>
+<ng-container *ngIf="showForm">
+
+    <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+        <mat-card class="card-container">
       <mat-card-content>
           <div class="bma-row">
-              <div class="bma-col-4 bma-col-md-6 bma-col-sm-12 form-field-container">
-                  <!-- <mat-form-field appearance="fill">
-                      <mat-label>Sail date</mat-label>
-                      <mat-date-range-input [rangePicker]="sailDatePicker"
-                          [comparisonStart]="form.controls.beginSailDate.value"
-                          [comparisonEnd]="form.controls.endSailDate.value">
-                          <input matStartDate placeholder="Start date" formControlName="beginSailDate">
-                          <input matEndDate placeholder="End date" formControlName="endSailDate">
-                      </mat-date-range-input>
-                      <mat-hint>MM/DD/YYYY</mat-hint>
-                      <mat-datepicker-toggle matSuffix [for]="sailDatePicker"></mat-datepicker-toggle>
-                      <mat-date-range-picker #sailDatePicker></mat-date-range-picker>
-                  </mat-form-field> -->
+              <h3 class="bma-col-12">Probabilidad poco viento:</h3>
+              <div class="bma-col-12">
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_1</mat-label>
+                      <input matInput formControlName="probPocoVientoA_1">
+                    </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_2</mat-label>
+                      <input matInput formControlName="probPocoVientoA_2">
+                    </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_3</mat-label>
+                    <input matInput formControlName="probPocoVientoA_3">
+                </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_4</mat-label>
+                    <input matInput formControlName="probPocoVientoA_4">
+                </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_5</mat-label>
+                    <input matInput formControlName="probPocoVientoA_5">
+                </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_6</mat-label>
+                    <input matInput formControlName="probPocoVientoA_6">
+                </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_7</mat-label>
+                    <input matInput formControlName="probPocoVientoA_7">
+                </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_8</mat-label>
+                    <input matInput formControlName="probPocoVientoA_8">
+                </mat-form-field>
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_9</mat-label>
+                    <input matInput formControlName="probPocoVientoA_9">
+                </mat-form-field>
                 </div>
-              </div>
-              
-      </mat-card-content>
+                <div class="bma-col-12">
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_1</mat-label>
+                        <input matInput formControlName="probPocoVientoB_1">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_2</mat-label>
+                      <input matInput formControlName="probPocoVientoB_2">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>B_3</mat-label>
+                      <input matInput formControlName="probPocoVientoB_3">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_4</mat-label>
+                      <input matInput formControlName="probPocoVientoB_4">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>B_5</mat-label>
+                      <input matInput formControlName="probPocoVientoB_5">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>B_6</mat-label>
+                      <input matInput formControlName="probPocoVientoB_6">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>B_7</mat-label>
+                      <input matInput formControlName="probPocoVientoB_7">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>B_8</mat-label>
+                      <input matInput formControlName="probPocoVientoB_8">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>B_9</mat-label>
+                      <input matInput formControlName="probPocoVientoB_9">
+                  </mat-form-field>
+                  </div>
+                  <div class="bma-col-12">
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>C_1</mat-label>
+                          <input matInput formControlName="probPocoVientoC_1">
+                        </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_2</mat-label>
+                        <input matInput formControlName="probPocoVientoC_2">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_3</mat-label>
+                      <input matInput formControlName="probPocoVientoC_3">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_4</mat-label>
+                      <input matInput formControlName="probPocoVientoC_4">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_5</mat-label>
+                      <input matInput formControlName="probPocoVientoC_5">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_6</mat-label>
+                      <input matInput formControlName="probPocoVientoC_6">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_7</mat-label>
+                      <input matInput formControlName="probPocoVientoC_7">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_8</mat-label>
+                      <input matInput formControlName="probPocoVientoC_8">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>C_9</mat-label>
+                      <input matInput formControlName="probPocoVientoC_9">
+                  </mat-form-field>
+                  </div>
+                  
+                </div>
+                
+            </mat-card-content>
       <mat-card-actions align="end">
           <button [disabled]="form.invalid" mat-button type="submit">Submit</button>
-      </mat-card-actions>
-  </form>
-</mat-card><!-- 
-<ng-container *ngIf="items$ | async as voyages">
-  <ng-container *ngIf="!(loading$ | async)">
+        </mat-card-actions>
+</mat-card>
+<mat-card class="card-container">
+    <mat-card-content>
+        <div class="bma-row">
+            <h3 class="bma-col-12">Probabilidad mucho viento:</h3>
+            <div class="bma-col-12">
+                <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                    <mat-label>A_1</mat-label>
+                        <input matInput formControlName="probMuchoVientoA_1">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_2</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_2">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_3</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_3">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>A_4</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_4">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_5</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_5">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_6</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_6">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_7</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_7">
+                    </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_8</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_8">
+                  </mat-form-field>
+                  <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                      <mat-label>A_9</mat-label>
+                      <input matInput formControlName="probMuchoVientoA_9">
+                  </mat-form-field>
+                </div>
+                  <div class="bma-col-12">
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>B_1</mat-label>
+                          <input matInput formControlName="probMuchoVientoB_1">
+                      </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_2</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_2">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_3</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_3">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_4</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_4">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_5</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_5">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_6</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_6">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_7</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_7">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_8</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_8">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>B_9</mat-label>
+                        <input matInput formControlName="probMuchoVientoB_9">
+                    </mat-form-field>
+                </div>
+                    <div class="bma-col-12">
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>C_1</mat-label>
+                          <input matInput formControlName="probMuchoVientoC_1">
+                      </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>C_2</mat-label>
+                          <input matInput formControlName="probMuchoVientoC_2">
+                        </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_3</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_3">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_4</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_4">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_5</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_5">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_6</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_6">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_7</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_7">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_8</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_8">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>C_9</mat-label>
+                        <input matInput formControlName="probMuchoVientoC_9">
+                    </mat-form-field>
+                </div>
+                
+            </div>
+                
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button [disabled]="form.invalid" mat-button type="submit">Submit</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="card-container">
+        <mat-card-content>
+            <div class="bma-row">
+                <h3 class="bma-col-12">Probabilidad Hoyos:</h3>
+                <div class="bma-col-12">
+                    <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                        <mat-label>H_1</mat-label>
+                            <input matInput formControlName="probMuchoVientoH_1">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_2</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_2">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_3</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_3">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                            <mat-label>H_4</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_4">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_5</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_5">
+                      </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_6</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_6">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_7</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_7">
+                        </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_8</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_8">
+                      </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_9</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_9">
+                      </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container">
+                      <mat-label>H_10</mat-label>
+                            <input matInput formControlName="probMuchoVientoH_10">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container">
+                      <mat-label>H_11</mat-label>
+                            <input matInput formControlName="probMuchoVientoH_11">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_12</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_12">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_13</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_13">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                            <mat-label>H_14</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_14">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_15</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_15">
+                      </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_16</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_16">
+                        </mat-form-field>
+                        <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_17</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_17">
+                        </mat-form-field>
+                      <mat-form-field class="bma-col-1 form-field-container" appearance="fill">
+                          <mat-label>H_18</mat-label>
+                          <input matInput formControlName="probMuchoVientoH_18">
+                      </mat-form-field>
+                </div>
+                <div class="bma-col-12">
+                    <mat-form-field class="bma-col-3 form-field-container" appearance="fill">
+                        <mat-label># simulaciones</mat-label>
+                        <input matInput formControlName="cantidadSimulaciones">
+                    </mat-form-field>
+                    <mat-form-field class="bma-col-3 form-field-container" appearance="fill">
+                        <mat-label># sets</mat-label>
+                        <input matInput formControlName="cantSet">
+                    </mat-form-field>
+                </div>
+                </div>
+                    
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button [disabled]="form.invalid" mat-button type="submit">Submit</button>
+            </mat-card-actions>
+        </mat-card>
+</form>
+</ng-container>
+<!-- 
+    <ng-container *ngIf="items$ | async as voyages">
+        <ng-container *ngIf="!(loading$ | async)">
       <table mat-table [dataSource]="voyages" class="voyage-table">
  -->
           <!-- Destination Column -->
