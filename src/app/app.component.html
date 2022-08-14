@@ -1,5 +1,7 @@
 <button mat-raised-button color="primary" type="button" (click)="showForm = !showForm">Show/hide config</button>
-<ng-container *ngIf="showForm">
+<button mat-raised-button color="accent" type="button" (click)="showTable = !showTable">Show/hide partidos</button>
+<button mat-raised-button color="warn" type="button" (click)="showDetails = !showDetails">Show/hide detalles</button>
+    <ng-container *ngIf="showForm">
 
     <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
         <mat-card class="card-container">
@@ -351,73 +353,120 @@
         </mat-card>
 </form>
 </ng-container>
-<!-- 
-    <ng-container *ngIf="items$ | async as voyages">
+<div [class.hidden]="!showTable">
+    <ng-container *ngIf="partidos$ | async as partidos">
         <ng-container *ngIf="!(loading$ | async)">
-      <table mat-table [dataSource]="voyages" class="voyage-table">
- -->
-          <!-- Destination Column -->
- <!--          <ng-container matColumnDef="destination">
-              <th mat-header-cell *matHeaderCellDef> Destination </th>
-              <td mat-cell *matCellDef="let element"> {{element.regionLocation}} </td>
-          </ng-container>
- -->
-          <!-- Ship Column -->
-    <!--       <ng-container matColumnDef="ship">
-              <th mat-header-cell *matHeaderCellDef> Ship </th>
-              <td mat-cell *matCellDef="let element"> {{element.shipCode}} </td>
-          </ng-container>
-
-       -->    <!-- Sail Date Column -->
-     <!--      <ng-container matColumnDef="sailDate">
-              <th mat-header-cell *matHeaderCellDef> Sail Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.sailDate | date}} </td>
-          </ng-container>
-
-        -->   <!-- Guest Number Column -->
-     <!--      <ng-container matColumnDef="guestNumber">
-              <th mat-header-cell *matHeaderCellDef> # Guests </th>
-              <td mat-cell *matCellDef="let element"> {{element.lastGuestCount}} </td>
-          </ng-container>
- -->
-          <!-- Party Status Column -->
-    <!--       <ng-container matColumnDef="partyStatus">
-              <th mat-header-cell *matHeaderCellDef> Party status </th>
-              <td mat-cell *matCellDef="let element"> {{element.partyStatus}} </td>
-          </ng-container>
- -->
-          <!-- Actions Column -->
-     <!--      <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef> Actions </th>
-              <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button>
-                      <mat-icon>content_copy</mat-icon>
-                  </button>
-                  <button mat-icon-button>
-                      <mat-icon>upload_file</mat-icon>
-                  </button>
-                  <button mat-icon-button>
-                      <mat-icon>cloud_upload</mat-icon>
-                  </button>
-              </td>
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-      <mat-paginator #paginator
-          [length]="pagination?.count"
-          [pageIndex]="getCurrentIndex"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="pagination.limit"
-          (page)="pageChanged($event)" aria-label="Select page">
-      </mat-paginator>
-  </ng-container>
+            <h3>Golpes total A: {{ golpesTotalA }}</h3>
+            <h3>Golpes total B: {{ golpesTotalB }}</h3>
+            <h3>Golpes total C: {{ golpesTotalC }}</h3>
+            <h3>Ganador: {{ getGanador(golpesTotalA, golpesTotalB, golpesTotalC) }}</h3>
+            <table mat-table multiTemplateDataRows [dataSource]="partidos" class="voyage-table">
+                <ng-container matColumnDef="golpesTotalPartidoA">
+                    <th mat-header-cell *matHeaderCellDef> Golpes A Partido  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.golpesTotalPartidoA}} </td>
+                </ng-container>
+                <ng-container matColumnDef="golpesTotalPartidoB">
+                    <th mat-header-cell *matHeaderCellDef> Golpes B Partido  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.golpesTotalPartidoB}} </td>
+                </ng-container>
+                <ng-container matColumnDef="golpesTotalPartidoC">
+                    <th mat-header-cell *matHeaderCellDef> Golpes C Partido  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.golpesTotalPartidoC}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ganadorPartido">
+                    <th mat-header-cell *matHeaderCellDef> Ganador Partido  </th>
+                    <td mat-cell *matCellDef="let element"> {{getGanador(element.golpesTotalPartidoA, element.golpesTotalPartidoB, element.golpesTotalPartidoC)}} </td>
+                </ng-container>
+                <!-- Expand Column -->
+                <ng-container matColumnDef="expand">
+                    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsPartidosWithExpand.length">
+                      
+                      <div class="example-element-detail"
+                      [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <!-- Set Table -->
+                     <table mat-table multiTemplateDataRows [dataSource]="element.sets" class="voyage-table">
+                        <ng-container matColumnDef="golpesTotalSetA">
+                            <th mat-header-cell *matHeaderCellDef> Golpes A Set  </th>
+                            <td mat-cell *matCellDef="let element"> {{element.golpesTotalSetA}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="golpesTotalSetB">
+                            <th mat-header-cell *matHeaderCellDef> Golpes B Set  </th>
+                            <td mat-cell *matCellDef="let element"> {{element.golpesTotalSetB}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="golpesTotalSetC">
+                            <th mat-header-cell *matHeaderCellDef> Golpes C Set  </th>
+                            <td mat-cell *matCellDef="let element"> {{element.golpesTotalSetC}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ganadorSet">
+                            <th mat-header-cell *matHeaderCellDef> Ganador Set  </th>
+                            <td mat-cell *matCellDef="let element"> {{getGanador(element.golpesTotalSetA, element.golpesTotalSetB, element.golpesTotalSetC)}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="expand">
+                            <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                            <td mat-cell *matCellDef="let element">
+                              <button mat-icon-button (click)="(expandedElementSet = expandedElementSet === element ? null : element); $event.stopPropagation()">
+                                <mat-icon *ngIf="expandedElementSet !== element">keyboard_arrow_down</mat-icon>
+                                <mat-icon *ngIf="expandedElementSet === element">keyboard_arrow_up</mat-icon>
+                              </button>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="expandedDetailSet">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsSetWithExpand.length">
+                                <div class="example-element-detail"
+                                [@detailExpand]="element == expandedElementSet ? 'expanded' : 'collapsed'">
+                                <!-- Detalles del set -->
+                                    <table mat-table multiTemplateDataRows [dataSource]="partidos" class="voyage-table">
+                                        <ng-container matColumnDef="golpesTotalPartidoA">
+                                            <th mat-header-cell *matHeaderCellDef> Golpes A Partido  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.golpesTotalPartidoA}} </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSetWithExpand"></tr>
+                                        <tr mat-row *matRowDef="let element; columns: displayedColumnsSetWithExpand;"
+                                            class="example-element-row"
+                                            [class.example-expanded-row]="expandedElementSet === element"
+                                            (click)="expandedElement = expandedElementSet === element ? null : element">
+                                        </tr>
+                                        <tr mat-row *matRowDef="let row; columns: ['expandedDetailSet']" class="example-detail-row"></tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSetWithExpand"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedColumnsSetWithExpand;"
+                            class="example-element-row"
+                            [class.example-expanded-row]="expandedElementSet === element"
+                            (click)="expandedElement = expandedElementSet === element ? null : element">
+                        </tr>
+                        <tr mat-row *matRowDef="let row; columns: ['expandedDetailSet']" class="example-detail-row"></tr>
+                    </table>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPartidosWithExpand"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsPartidosWithExpand;"
+                    class="example-element-row"
+                    [class.example-expanded-row]="expandedElement === element"
+                    (click)="expandedElement = expandedElement === element ? null : element">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+              
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[50,20,10,100,1000]"
+            showFirstLastButtons 
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </ng-container>
 </ng-container>
-<ng-container *ngIf="loading$ | async">
-  <div class="loading-container">
-      <mat-spinner class="bma-margin-top-32 bma-margin-bottom-32"></mat-spinner>
-  </div>
-</ng-container> -->
+</div>

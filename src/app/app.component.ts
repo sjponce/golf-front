@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, Observable, shareReplay, skip, startWith, switchMap, switchMapTo, tap, throwError } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { catchError, map, Observable, shareReplay, skip, startWith, switchMap, switchMapTo, tap, throwError } from 'rxjs';
 import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { GolfService } from './golf.service';
@@ -8,9 +11,18 @@ import { GolfService } from './golf.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class AppComponent {
+  @ViewChild(MatPaginator) paginator: any;
+
   /** Loading indicator */
   public loading$ = new BehaviorSubject(false);
 
@@ -19,9 +31,19 @@ export class AppComponent {
 
   /** Show form */
   public showForm = true;
+
+  /** Show table */
+  public showTable = false;
   
+  /** Show details */
+  public showDetails = false;
+
   /** Paged list of items */
   public partidos$?: Observable<any>;
+
+  public golpesTotalA = 0;
+  public golpesTotalB = 0;
+  public golpesTotalC = 0;
 
   constructor(
     readonly fb: FormBuilder,
@@ -38,6 +60,14 @@ export class AppComponent {
         );
       }
       ),
+      map(p => {
+        this.golpesTotalA = p.golpesTotalA
+        this.golpesTotalB = p.golpesTotalB
+        this.golpesTotalC = p.golpesTotalC
+        const tableData = new MatTableDataSource<any>(p.partidos)
+        tableData.paginator = this.paginator;
+        return tableData;
+      }),
       onMessageOrFailed(() => this.loading$.next(false)),
       shareReplay({ bufferSize: 1, refCount: true })
     );
@@ -45,8 +75,14 @@ export class AppComponent {
   /**
    * Table columns definitions.
    */
-  public readonly displayedColumns: string[] = ['destination', 'ship', 'sailDate', 'guestNumber', 'partyStatus', 'actions'];
+  public readonly displayedColumnsPartidos: string[] = ['golpesTotalPartidoA', 'golpesTotalPartidoB', 'golpesTotalPartidoC', 'ganadorPartido'];
+  displayedColumnsPartidosWithExpand = [ ...this.displayedColumnsPartidos, 'expand']
 
+  public readonly displayedColumnsSet: string[] = ['golpesTotalSetA', 'golpesTotalSetB', 'golpesTotalSetC', 'ganadorSet'];
+  displayedColumnsSetWithExpand = [ ...this.displayedColumnsSet , 'expand']
+
+  expandedElement: any
+  expandedElementSet: any
   /**
    * Form.
    */
@@ -145,6 +181,16 @@ export class AppComponent {
     this.reload$.next(null);
     this.partidos$?.subscribe(console.log)
     this.showForm = false;
+    this.showTable = true;
+    this.showDetails = false;
+  }
+
+  public getGanador(a: number, b: number, c: number) {
+    return a > b ? b > c ? 'C' : 'B' : a > c ? 'C' : 'A';
+  }
+
+  public asd(a: any) {
+    console.log(a)
   }
 }
 
