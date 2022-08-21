@@ -361,6 +361,10 @@
             <h3>Golpes total C: {{ golpesTotalC }}</h3>
             <h3>Ganador: {{ getGanador(golpesTotalA, golpesTotalB, golpesTotalC) }}</h3>
             <table mat-table multiTemplateDataRows [dataSource]="partidos" class="voyage-table">
+                <ng-container matColumnDef="nro">
+                    <th mat-header-cell *matHeaderCellDef > nro </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.nro }} </td>
+                </ng-container>
                 <ng-container matColumnDef="golpesTotalPartidoA">
                     <th mat-header-cell *matHeaderCellDef> Golpes A Partido  </th>
                     <td mat-cell *matCellDef="let element"> {{element.golpesTotalPartidoA}} </td>
@@ -396,6 +400,10 @@
                       [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                       <!-- Set Table -->
                      <table mat-table multiTemplateDataRows [dataSource]="element.sets" class="voyage-table">
+                        <ng-container matColumnDef="nro">
+                            <th mat-header-cell *matHeaderCellDef > nro </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.nro }} </td>
+                        </ng-container>
                         <ng-container matColumnDef="golpesTotalSetA">
                             <th mat-header-cell *matHeaderCellDef> Golpes A Set  </th>
                             <td mat-cell *matCellDef="let element"> {{element.golpesTotalSetA}} </td>
@@ -421,23 +429,50 @@
                               </button>
                             </td>
                           </ng-container>
-                          <ng-container matColumnDef="expandedDetailSet">
+                          <ng-container matColumnDef="expandedElementSet">
                             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsSetWithExpand.length">
                                 <div class="example-element-detail"
                                 [@detailExpand]="element == expandedElementSet ? 'expanded' : 'collapsed'">
                                 <!-- Detalles del set -->
-                                    <table mat-table multiTemplateDataRows [dataSource]="partidos" class="voyage-table">
-                                        <ng-container matColumnDef="golpesTotalPartidoA">
-                                            <th mat-header-cell *matHeaderCellDef> Golpes A Partido  </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.golpesTotalPartidoA}} </td>
+                                    <table mat-table [dataSource]="element.hoyos" class="voyage-table">
+                                        <ng-container matColumnDef="nro">
+                                            <th mat-header-cell *matHeaderCellDef > nro </th>
+                                            <td mat-cell *matCellDef="let element"> {{ element.nro }} </td>
                                         </ng-container>
-                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSetWithExpand"></tr>
-                                        <tr mat-row *matRowDef="let element; columns: displayedColumnsSetWithExpand;"
-                                            class="example-element-row"
-                                            [class.example-expanded-row]="expandedElementSet === element"
-                                            (click)="expandedElement = expandedElementSet === element ? null : element">
-                                        </tr>
-                                        <tr mat-row *matRowDef="let row; columns: ['expandedDetailSet']" class="example-detail-row"></tr>
+                                        <ng-container matColumnDef="rndMuchoviento">
+                                            <th mat-header-cell *matHeaderCellDef > Rnd Mucho viento  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.rndMuchoviento.toFixed(4)}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="vientoHoyoSet">
+                                            <th mat-header-cell *matHeaderCellDef> Viento hoyo set  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.vientoHoyoSet}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="rndNumeroGolpesA">
+                                            <th mat-header-cell *matHeaderCellDef> Rnd numero golpes A  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.rndNumeroGolpesA.toFixed(4)}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="numeroGolpesA">
+                                            <th mat-header-cell *matHeaderCellDef> Numero golpes A  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.numeroGolpesA}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="rndNumeroGolpesB">
+                                            <th mat-header-cell *matHeaderCellDef> Rnd numero golpes B  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.rndNumeroGolpesB.toFixed(4)}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="numeroGolpesB">
+                                            <th mat-header-cell *matHeaderCellDef> Numero golpes B  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.numeroGolpesB}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="rndNumeroGolpesC">
+                                            <th mat-header-cell *matHeaderCellDef> Rnd numero golpes C  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.rndNumeroGolpesC.toFixed(4)}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="numeroGolpesC">
+                                            <th mat-header-cell *matHeaderCellDef> Numero golpes C  </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.numeroGolpesC}} </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsHoyo"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsHoyo" class="example-detail-row"></tr>
                                     </table>
                                 </div>
                             </td>
@@ -448,13 +483,13 @@
                             [class.example-expanded-row]="expandedElementSet === element"
                             (click)="expandedElement = expandedElementSet === element ? null : element">
                         </tr>
-                        <tr mat-row *matRowDef="let row; columns: ['expandedDetailSet']" class="example-detail-row"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ['expandedElementSet']" class="example-detail-row"></tr>
                     </table>
                     </div>
                   </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsPartidosWithExpand"></tr>
-                <tr mat-row *matRowDef="let element; columns: displayedColumnsPartidosWithExpand;"
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsPartidosWithExpand"
                     class="example-element-row"
                     [class.example-expanded-row]="expandedElement === element"
                     (click)="expandedElement = expandedElement === element ? null : element">

@@ -75,14 +75,17 @@ export class AppComponent {
   /**
    * Table columns definitions.
    */
-  public readonly displayedColumnsPartidos: string[] = ['golpesTotalPartidoA', 'golpesTotalPartidoB', 'golpesTotalPartidoC', 'ganadorPartido'];
+  public readonly displayedColumnsPartidos: string[] = ['nro', 'golpesTotalPartidoA', 'golpesTotalPartidoB', 'golpesTotalPartidoC', 'ganadorPartido'];
   displayedColumnsPartidosWithExpand = [ ...this.displayedColumnsPartidos, 'expand']
 
-  public readonly displayedColumnsSet: string[] = ['golpesTotalSetA', 'golpesTotalSetB', 'golpesTotalSetC', 'ganadorSet'];
+  public readonly displayedColumnsSet: string[] = ['nro', 'golpesTotalSetA', 'golpesTotalSetB', 'golpesTotalSetC', 'ganadorSet'];
   displayedColumnsSetWithExpand = [ ...this.displayedColumnsSet , 'expand']
+
+  public readonly displayedColumnsHoyo: string[] = ['nro', 'rndMuchoviento', 'vientoHoyoSet', 'rndNumeroGolpesA', 'numeroGolpesA', 'rndNumeroGolpesB', 'numeroGolpesB', 'rndNumeroGolpesC', 'numeroGolpesC'];
 
   expandedElement: any
   expandedElementSet: any
+
   /**
    * Form.
    */
@@ -170,7 +173,7 @@ export class AppComponent {
       probMuchoVientoH_18: [0.4, Validators.required],
 
       cantSet: [4, Validators.required],
-      cantidadSimulaciones: [1000, Validators.required]
+      cantidadSimulaciones: [10, Validators.required]
     });
   }
 
@@ -187,10 +190,6 @@ export class AppComponent {
 
   public getGanador(a: number, b: number, c: number) {
     return a > b ? b > c ? 'C' : 'B' : a > c ? 'C' : 'A';
-  }
-
-  public asd(a: any) {
-    console.log(a)
   }
 }
 
